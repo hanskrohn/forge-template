@@ -5,9 +5,7 @@ import (
 )
 
 func CreateFile(content string, path string) {
-	newContent := content
-
-	err := os.WriteFile(path, []byte(newContent), 0660)
+	err := os.WriteFile(path, []byte(content), 0660)
 	if err != nil {
 		panic(err)
 	}

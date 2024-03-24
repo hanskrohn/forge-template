@@ -17,6 +17,10 @@ func BuildTree(input string) (*Node, error) {
 func helpBuildTree(rootNode *Node, lines []string, index int, depth int) (int, error) {
 	for nextLineIndex := index + 1; nextLineIndex < len(lines); nextLineIndex++ {
 		nextLine := lines[nextLineIndex]
+		if strings.TrimSpace(nextLine) == "" {
+			continue
+		}
+
 		nextDepth := getNextDepth(nextLine)
 
 		if nextDepth == 0 {

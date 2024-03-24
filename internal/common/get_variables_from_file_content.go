@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-func GetVariablesFromContent(content string)  *[]*Variable{
+func GetVariablesFromContent(content string)  *[]*Variable {
 	re := regexp.MustCompile(`<<(.*?)>>`)
 
 	variableValues := make([]*Variable, 0)
@@ -15,7 +15,7 @@ func GetVariablesFromContent(content string)  *[]*Variable{
 		matches := re.FindAllStringSubmatch(line, -1)
 	
 		for _, match := range matches {
-			variableValue := &Variable{ VariableIdentifier: match[0]}
+			variableValue := &Variable{ VariableIdentifier: match[0], VariableName: match[1]}
 			variableValues = append(variableValues, variableValue)
 		}
 	}

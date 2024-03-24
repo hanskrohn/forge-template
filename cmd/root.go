@@ -19,26 +19,11 @@ var rootCmd = &cobra.Command{
 
 		if(selectedAction == state.CreateProjectTemplate || selectedAction == state.CreateFileTemplate) {
 			actions.CreateTemplate(s)
-		}else if(true){
-
+		}else if(selectedAction == state.CreateProjectFromTemplate || selectedAction == state.CreateFileFromTemplate) {
+			actions.CreateFileOrDirectory(s)
+		}else if (selectedAction == state.DeleteProjectTemplate || selectedAction == state.DeleteFileTemplate) {
+			actions.DeleteTemplate(s)
 		}
-
-		// switch selectedAction := s.Action; selectedAction {
-		// case state.CreateProjectTemplate:
-		// 	actions.CreateTemplate(s)
-		// case state.CreateFileTemplate:
-		// 	actions.CreateTemplate(s)
-		// case state.CreateProjectFromTemplate:
-		// 	actions.CreateFileOrDirFromTemplate(s)
-		// case state.CreateFileFromTemplate:
-		// 	actions.CreateFileOrDirFromTemplate(s)
-		// case state.DeleteProjectTemplate:
-		// 	actions.DeleteFileOrDirTemplate(s)
-		// case state.DeleteFileTemplate:
-		// 	actions.DeleteFileOrDirTemplate(s)
-		// case state.SaveToGithub:
-		// 	actions.SaveToGithub(s)
-		// }
 	},
 }
 

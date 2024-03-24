@@ -15,11 +15,10 @@ func (m mainMenuModel) Init() tea.Cmd {
 func (m mainMenuModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	cmd := m.list.Update(msg)
 	return m, cmd
-
 }
 
 func (m mainMenuModel) View() string {
-	return m.list.View()
+	return m.list.View("Select action:")
 }
 
 func DisplayMainMenu(s *state.State) {
@@ -30,7 +29,6 @@ func DisplayMainMenu(s *state.State) {
 		state.CreateFileFromTemplate.String(),
 		state.DeleteProjectTemplate.String(),
 		state.DeleteFileTemplate.String(),
-		state.SaveToGithub.String(),
 	}
 
 	mainMenuModel := mainMenuModel{
@@ -38,9 +36,9 @@ func DisplayMainMenu(s *state.State) {
 		list: &tui.List{
 			Choices: choices,
 			Cursor: 0,
-			OnSelect: func(i int) {
-				choice := choices[i]
+			OnSelect: func(choice string) tea.Cmd {
         		s.Action = state.StringToAction(choice)
+				return tea.Quit
 			},
 		},
 

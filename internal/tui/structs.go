@@ -9,7 +9,7 @@ import (
 type List struct {
     Choices  []string
     Cursor   int
-    OnSelect func(int)
+    OnSelect func(string) tea.Cmd
 }
 
 type TextInput struct {

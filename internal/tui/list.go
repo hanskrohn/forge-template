@@ -17,8 +17,7 @@ func (l *List) Update(msg tea.Msg) tea.Cmd {
 		case "ctrl+c":
 			return tea.Quit
 		case "enter":
-			l.OnSelect(l.Cursor)
-			return tea.Quit
+			return l.OnSelect(l.Choices[l.Cursor])
         case "up":
             if l.Cursor > 0 {
                 l.Cursor--
@@ -32,7 +31,7 @@ func (l *List) Update(msg tea.Msg) tea.Cmd {
     return nil
 }
 
-func (l *List) View() string {
+func (l *List) View(header string) string {
 	var s string
 	for i, choice := range l.Choices {
 		cursor := " "
@@ -41,5 +40,6 @@ func (l *List) View() string {
 		}
 		s += fmt.Sprintf("%s %s\n", cursor, choice)
 	}
-	return s
+	body := fmt.Sprintf("%s\n\n%s", header, s)
+	return body
 }

@@ -1,7 +1,6 @@
 package actions
 
 import (
-	"fmt"
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
@@ -14,6 +13,8 @@ import (
 
 func (m createTemplateModel) Init() tea.Cmd {
 	m.textInput.Init("Enter Name of template...")
+	m.textInput.TextInput.Focus()
+
 	m.textArea.Init("Enter Content...")
 
 	return nil
@@ -45,7 +46,7 @@ func (m createTemplateModel) View() string {
 		)
 	}
 
-	return "UNKNOWN MODE: Please report this issue at TODO"
+	return UNKNOWN_MODE_ERROR_TEXT
 }
 
 func (m createTemplateModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
@@ -86,9 +87,7 @@ func (createTemplate *createTemplateModel) TextAreaOnConfirmFunction(value strin
 		path = projectTemplatePath + string(os.PathSeparator) + createTemplate.templateData.fileName
 	}else if createTemplate.state.Action == state.CreateFileTemplate {
 		path = fileTemplatePath + string(os.PathSeparator) + createTemplate.templateData.fileName
-	} else {
-		panic("TODO")
-	}
+	} 
 
 	files.CreateFile(value, path)
 
@@ -119,6 +118,6 @@ func CreateTemplate(s *state.State) {
 	p := tea.NewProgram(createTemplateModel, tea.WithAltScreen())
 
 	if _, err := p.Run(); err != nil {
-		fmt.Println(err)
+		panic(err)
 	}
 }
