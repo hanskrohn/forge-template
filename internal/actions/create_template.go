@@ -38,7 +38,7 @@ func (m createTemplateModel) View() string {
 		)
 	}else if m.templateData.mode == modeDefiningName {
 		return m.textInput.View("%s\n\n%s\n\n%s\n%s\n%s",
-			DEFINE_TEMPLATE_TEXT,
+			DEFINE_TEMPLATE_NAME_TEXT,
 			m.textInput.TextInput.View(),
 			"(ctrl+s to save)",
 			"(ctrl+c to quit)",

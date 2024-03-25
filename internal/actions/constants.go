@@ -1,14 +1,12 @@
 package actions
 
-const DEFINE_TEMPLATE_TEXT = `
-TODO: Write Text
-`
+const DEFINE_TEMPLATE_NAME_TEXT = "Please define a template name. Reference https://github.com/hanskrohn/forge-template for instructions"
 
-const DEFINE_CONTENT_TEXT = "TODO: Write Text"
+const DEFINE_CONTENT_TEXT = "Please define the content of the template. Reference https://github.com/hanskrohn/forge-template for instructions"
 
-const DEFINE_VALUE_FOR_VARIABLE_TEXT = "TODO: Write Text"
+const DEFINE_VALUE_FOR_VARIABLE_TEXT = "Define value for variable:"
 
-const UNKNOWN_MODE_ERROR_TEXT = "UNKNOWN MODE: Please report this issue at TODO"
+const UNKNOWN_MODE_ERROR_TEXT = "UNKNOWN MODE: Please report this issue at https://github.com/hanskrohn/forge-template/issues"
 
 type mode int
 
