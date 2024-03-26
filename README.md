@@ -1,9 +1,9 @@
 # forge-template
 
-Create reusable templates for files and repo structures.
+Create reusable templates for files and project structures.
 
 ## Installation
 
-## Defining a repo template
+## Defining a project template
 
 ## Defining a file template
