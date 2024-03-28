@@ -5,8 +5,11 @@ import (
 	"strings"
 )
 
-func GetVariablesFromContent(content string)  *[]*Variable {
-	re := regexp.MustCompile(`<<(.*?)>>`)
+func GetVariablesFromContent(content string) *[]*Variable {
+    placeholder := "ESCAPED_SEQUENCE"
+    content = strings.Replace(content, "\\<", placeholder, -1)
+    content = strings.Replace(content, "\\>", placeholder, -1)
+    re := regexp.MustCompile(`<<([^>]*)>>`)
 
     variableValues := make([]*Variable, 0)
     variablesSeen := make(map[string]bool)
@@ -17,7 +20,7 @@ func GetVariablesFromContent(content string)  *[]*Variable {
 
         for _, match := range matches {
             if _, seen := variablesSeen[match[1]]; !seen {
-                variableValue := &Variable{VariableIdentifier: match[0], VariableName: match[1]}
+                variableValue := &Variable{VariableIdentifier: strings.Replace(match[0], placeholder, "\\<<", -1), VariableName: match[1]}
                 variableValues = append(variableValues, variableValue)
                 variablesSeen[match[1]] = true
             }
