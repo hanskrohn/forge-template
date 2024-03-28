@@ -1,5 +1,7 @@
 # forge-template
 
+![Example GIF](./assets/example.gif)
+
 Tired of repetitive, boilerplate code? `forge-template` is here to rescue you! No more wasting time on generic, repetitive tasks! With `forge-template` you can quickly generate templates tailored to your project requirements, letting you focus on what really matters, your code.
 
 ## Table of Contents
