@@ -10,6 +10,7 @@ var rootCmd = &cobra.Command{
 	Use:   "forge-template",
 	Short: "create boilerplate code",
 	Long:  `create boilerplate code`,
+	Version: "1.0.1", // Make this dynamic
 	Run: func(cmd *cobra.Command, args []string) {
 		s := state.New()
 
