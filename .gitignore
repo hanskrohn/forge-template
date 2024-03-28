@@ -1,0 +1,11 @@
+__debug__bin*
+forge-template-linux-386 
+forge-template-linux-amd64 
+forge-template-linux-arm
+forge-template-linux-arm64
+forge-template-windows-amd64
+forge-template-windows-386
+forge-template-windows-arm
+forge-template-windows-arm64
+forge-template-darwin-amd64
+forge-template-darwin-arm64
