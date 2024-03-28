@@ -61,7 +61,7 @@ func (createFileOrDirFromTemplate *CreateFileOrDirFromTemplateModel) createFileO
 	if createFileOrDirFromTemplate.state.Action == state.CreateProjectFromTemplate {
 		directories.CreateDirectoryFromTemplate(content, dir)
 	}else if createFileOrDirFromTemplate.state.Action == state.CreateFileFromTemplate {
-		files.CreateFile(content, dir + string(os.PathSeparator) + createFileOrDirFromTemplate.templateData.fileName)
+		files.CreateFile(content, dir + string(os.PathSeparator) + createFileOrDirFromTemplate.templateData.fileName, true)
 	}
 }
 

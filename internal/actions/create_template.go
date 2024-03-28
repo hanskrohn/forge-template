@@ -89,7 +89,7 @@ func (createTemplate *createTemplateModel) TextAreaOnConfirmFunction(value strin
 		path = fileTemplatePath + string(os.PathSeparator) + createTemplate.templateData.fileName
 	} 
 
-	files.CreateFile(value, path)
+	files.CreateFile(value, path, false)
 
 	return tea.Quit
 }
