@@ -11,7 +11,8 @@ import (
 func (l *TextArea) Init(placeholder string) tea.Cmd {
 	l.TextArea = textarea.New()
 	l.TextArea.Placeholder = placeholder
-
+	l.TextArea.SetHeight(10)
+	
     return nil
 }
 
