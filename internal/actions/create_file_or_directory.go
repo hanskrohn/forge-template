@@ -38,7 +38,7 @@ func (m CreateFileOrDirFromTemplateModel) View() string {
 			variable = (*m.templateData.variables)[m.templateData.variablesIndex].VariableName
 		}
 		
-		return m.textInput.View("%s: %s\n\n%s\n\n%s\n%s",
+		return m.textInput.View("%s %s\n\n%s\n\n%s\n%s",
 			DEFINE_VALUE_FOR_VARIABLE_TEXT,
 			variable,
 			m.textInput.TextInput.View(),
