@@ -32,6 +32,7 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	AddCreateFileCommand(rootCmd)
+	AddCreateProjectCommand(rootCmd)
 }
 
 func Execute() {

@@ -149,7 +149,7 @@ func(createFileOrDirFromTemplate *CreateFileOrDirFromTemplateModel) correctFileO
 		path = fileTemplatePath
 	}
 
-	if createFileOrDirFromTemplateData != nil && createFileOrDirFromTemplate.state.Action == state.CreateFileFromTemplate{
+	if createFileOrDirFromTemplateData != nil {
 		content, variables := getFileContentAndVariables(path + string(os.PathSeparator) + createFileOrDirFromTemplateData.TemplateName)
 
 		createFileOrDirFromTemplateData.fileContent = content
