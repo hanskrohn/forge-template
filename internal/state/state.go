@@ -63,8 +63,8 @@ type State struct {
 	Action Action
 }
 
-func New() *State {
+func New(action Action) *State {
 	return &State{
-		Action: Unknown,
+		Action: action,
 	}
 }

@@ -30,12 +30,12 @@ func (m createTemplateModel) View() string {
 		format = "%s\n\n%s"
 	}
 
-	if m.templateData.mode == modeDefiningContent {
+	if m.templateData.mode == ModeDefiningContent {
 		return m.textArea.View(format,
 			DEFINE_CONTENT_TEXT,
 			errorMessage,
 		)
-	}else if m.templateData.mode == modeDefiningName {
+	}else if m.templateData.mode == ModeDefiningName {
 		return m.textInput.View(format,
 			DEFINE_TEMPLATE_NAME_TEXT,
 			errorMessage,
@@ -48,9 +48,9 @@ func (m createTemplateModel) View() string {
 func (m createTemplateModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
-	if m.templateData.mode == modeDefiningContent {
+	if m.templateData.mode == ModeDefiningContent {
 		cmd = m.textArea.Update(msg)
-	}else if m.templateData.mode == modeDefiningName {
+	}else if m.templateData.mode == ModeDefiningName {
 		cmd = m.textInput.Update(msg)
 	}
 
@@ -59,7 +59,7 @@ func (m createTemplateModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 func (createTemplate *createTemplateModel) TextInputOnConfirmFunction(value string) tea.Cmd {
 	createTemplate.templateData.fileName = value
-	createTemplate.templateData.mode = modeDefiningContent
+	createTemplate.templateData.mode = ModeDefiningContent
 
 	createTemplate.textArea.TextArea.Focus()
 	createTemplate.textInput.TextInput.Blur()
@@ -95,7 +95,7 @@ func CreateTemplate(s *state.State) {
 		textInput: &tui.TextInput{},
 		textArea: &tui.TextArea{},
 		templateData: &createTemplateData{
-			mode: modeDefiningName,
+			mode: ModeDefiningName,
 		},
 		errorTracker: &errorTracker{
 			errorHappened: false,
