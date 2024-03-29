@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var Version string
+var Version string = "1.1.1"
 
 var rootCmd = &cobra.Command{
 	Use:   "forge-template",
