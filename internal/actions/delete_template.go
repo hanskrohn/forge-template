@@ -42,7 +42,7 @@ func (m deleteModel) OnListSelect(value string) tea.Cmd {
 	return tea.Quit
 }
 
-func DeleteTemplate(s *state.State) {
+func DeleteTemplate(s *state.State, fileName string) {
 	projectTemplateFileNames, fileTemplateFileNames := common.GetTemplates()
 
 	var choices []string
@@ -62,6 +62,11 @@ func DeleteTemplate(s *state.State) {
 
 	deleteModel.list.OnSelect = func(value string) tea.Cmd {
 		return deleteModel.OnListSelect(value)
+	}
+
+	if fileName != "" {
+		deleteModel.OnListSelect(fileName)
+		return
 	}
 
 	p := tea.NewProgram(deleteModel, tea.WithAltScreen())

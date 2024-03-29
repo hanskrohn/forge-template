@@ -21,11 +21,11 @@ var rootCmd = &cobra.Command{
 		selectedAction := s.Action
 
 		if(selectedAction == state.CreateProjectTemplate || selectedAction == state.CreateFileTemplate) {
-			actions.CreateTemplate(s)
+			actions.CreateTemplate(s, nil)
 		}else if(selectedAction == state.CreateProjectFromTemplate || selectedAction == state.CreateFileFromTemplate) {
 			actions.CreateFileOrDirectory(s, nil)
 		}else if (selectedAction == state.DeleteProjectTemplate || selectedAction == state.DeleteFileTemplate) {
-			actions.DeleteTemplate(s)
+			actions.DeleteTemplate(s, "")
 		}
 	},
 }
@@ -33,6 +33,8 @@ var rootCmd = &cobra.Command{
 func init() {
 	AddCreateFileCommand(rootCmd)
 	AddCreateProjectCommand(rootCmd)
+	AddCreateTemplateCommand(rootCmd)
+	AddDeleteTemplateCommand(rootCmd)
 }
 
 func Execute() {

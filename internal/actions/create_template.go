@@ -16,6 +16,7 @@ func (m createTemplateModel) Init() tea.Cmd {
 	m.textInput.TextInput.Focus()
 
 	m.textArea.Init("Enter Content...")
+	m.textArea.TextArea.Focus()
 
 	return nil
 }
@@ -30,12 +31,12 @@ func (m createTemplateModel) View() string {
 		format = "%s\n\n%s"
 	}
 
-	if m.templateData.mode == ModeDefiningContent {
+	if m.templateData.Mode == ModeDefiningContent {
 		return m.textArea.View(format,
 			DEFINE_CONTENT_TEXT,
 			errorMessage,
 		)
-	}else if m.templateData.mode == ModeDefiningName {
+	}else if m.templateData.Mode == ModeDefiningName {
 		return m.textInput.View(format,
 			DEFINE_TEMPLATE_NAME_TEXT,
 			errorMessage,
@@ -48,9 +49,9 @@ func (m createTemplateModel) View() string {
 func (m createTemplateModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
-	if m.templateData.mode == ModeDefiningContent {
+	if m.templateData.Mode == ModeDefiningContent {
 		cmd = m.textArea.Update(msg)
-	}else if m.templateData.mode == ModeDefiningName {
+	}else if m.templateData.Mode == ModeDefiningName {
 		cmd = m.textInput.Update(msg)
 	}
 
@@ -58,10 +59,9 @@ func (m createTemplateModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (createTemplate *createTemplateModel) TextInputOnConfirmFunction(value string) tea.Cmd {
-	createTemplate.templateData.fileName = value
-	createTemplate.templateData.mode = ModeDefiningContent
+	createTemplate.templateData.TemplateName = value
+	createTemplate.templateData.Mode = ModeDefiningContent
 
-	createTemplate.textArea.TextArea.Focus()
 	createTemplate.textInput.TextInput.Blur()
 
 	return nil
@@ -80,9 +80,9 @@ func (createTemplate *createTemplateModel) TextAreaOnConfirmFunction(value strin
 			return nil
 		}
 
-		path = projectTemplatePath + string(os.PathSeparator) + createTemplate.templateData.fileName
+		path = projectTemplatePath + string(os.PathSeparator) + createTemplate.templateData.TemplateName
 	}else if createTemplate.state.Action == state.CreateFileTemplate {
-		path = fileTemplatePath + string(os.PathSeparator) + createTemplate.templateData.fileName
+		path = fileTemplatePath + string(os.PathSeparator) + createTemplate.templateData.TemplateName
 	} 
 
 	files.CreateFile(value, path, false)
@@ -90,12 +90,18 @@ func (createTemplate *createTemplateModel) TextAreaOnConfirmFunction(value strin
 	return tea.Quit
 }
 
-func CreateTemplate(s *state.State) {
+func(createTemplateModel *createTemplateModel) correctTemplateData(templateData *CreateTemplateData) {
+	if templateData != nil {
+		createTemplateModel.templateData = templateData
+	}
+}
+
+func CreateTemplate(s *state.State, templateData *CreateTemplateData) {
 	createTemplateModel := createTemplateModel{
 		textInput: &tui.TextInput{},
 		textArea: &tui.TextArea{},
-		templateData: &createTemplateData{
-			mode: ModeDefiningName,
+		templateData: &CreateTemplateData{
+			Mode: ModeDefiningName,
 		},
 		errorTracker: &errorTracker{
 			errorHappened: false,
@@ -110,6 +116,8 @@ func CreateTemplate(s *state.State) {
 	createTemplateModel.textArea.OnConfirm = func(value string) tea.Cmd {
 		return createTemplateModel.TextAreaOnConfirmFunction(value)
     }
+
+	createTemplateModel.correctTemplateData(templateData)
 
 	p := tea.NewProgram(createTemplateModel, tea.WithAltScreen())
 

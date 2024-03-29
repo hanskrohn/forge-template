@@ -10,6 +10,7 @@ var projectTemplateName string
 
 var createProjectCmd = &cobra.Command{
 	Use:   "create-project",
+	Aliases: []string{"cp", "c-p"},
 	Short: "Create a project from a template",
 	Long:  `Create a project from a template`,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -18,7 +19,7 @@ var createProjectCmd = &cobra.Command{
 			TemplateName: projectTemplateName,
 			Mode:         actions.ModeDefiningVariableNames,
 		}
-		
+
 		actions.CreateFileOrDirectory(s, &c)
 	},
 }
