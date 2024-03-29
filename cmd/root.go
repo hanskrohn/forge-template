@@ -14,7 +14,7 @@ var rootCmd = &cobra.Command{
 	Long:  `create boilerplate code`,
 	Version: Version,
 	Run: func(cmd *cobra.Command, args []string) {
-		s := state.New()
+		s := state.New(state.Unknown)
 
 		actions.DisplayMainMenu(s)
 
@@ -23,7 +23,7 @@ var rootCmd = &cobra.Command{
 		if(selectedAction == state.CreateProjectTemplate || selectedAction == state.CreateFileTemplate) {
 			actions.CreateTemplate(s)
 		}else if(selectedAction == state.CreateProjectFromTemplate || selectedAction == state.CreateFileFromTemplate) {
-			actions.CreateFileOrDirectory(s)
+			actions.CreateFileOrDirectory(s, nil)
 		}else if (selectedAction == state.DeleteProjectTemplate || selectedAction == state.DeleteFileTemplate) {
 			actions.DeleteTemplate(s)
 		}
@@ -31,6 +31,7 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
+	AddCreateFileCommand(rootCmd)
 }
 
 func Execute() {

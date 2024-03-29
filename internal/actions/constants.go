@@ -17,9 +17,9 @@ const UNKNOWN_MODE_ERROR_TEXT = "UNKNOWN MODE: Please report this issue at https
 type mode int
 
 const (
-	modeDefiningName mode = iota
-	modeDefiningContent
-	modeSelectingTemplate
-	modeDefiningVariableNames
-	modeDefiningFileName
+	ModeDefiningName mode = iota
+	ModeDefiningContent
+	ModeSelectingTemplate
+	ModeDefiningVariableNames
+	ModeDefiningFileName
 )

@@ -32,17 +32,18 @@ type createTemplateData struct {
 type CreateFileOrDirFromTemplateModel struct {
 	list 			*tui.List
 	textInput 		*tui.TextInput
-	templateData 	*createFileOrDirFromTemplateData
+	templateData 	*CreateFileOrDirFromTemplateData
 	state   		*state.State
 	errorTracker 	*errorTracker
 }
 
-type createFileOrDirFromTemplateData struct {
+type CreateFileOrDirFromTemplateData struct {
 	variables 	   *[]*common.Variable 
 	variablesIndex int
-	fileName  	   string
 	fileContent    string
-	mode      	   mode
+	TemplateName   string
+	FileName  	   string
+	Mode      	   mode
 }
 
 type errorTracker struct {
