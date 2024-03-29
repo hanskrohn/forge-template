@@ -22,26 +22,22 @@ func (m createTemplateModel) Init() tea.Cmd {
 
 func (m createTemplateModel) View() string {
 	var errorMessage string
+	var format string = "%s\n%s"
 
 	if m.errorTracker.errorHappened {
 		errorMessage = "An error occurred: " + m.errorTracker.err.Error()
 		m.errorTracker.errorHappened = false
+		format = "%s\n\n%s"
 	}
 
 	if m.templateData.mode == modeDefiningContent {
-		return m.textArea.View("%s\n\n%s\n\n%s\n%s\n%s",
+		return m.textArea.View(format,
 			DEFINE_CONTENT_TEXT,
-			m.textArea.TextArea.View(),
-			"(ctrl+s to save)",
-			"(ctrl+c to quit)",
 			errorMessage,
 		)
 	}else if m.templateData.mode == modeDefiningName {
-		return m.textInput.View("%s\n\n%s\n\n%s\n%s\n%s",
+		return m.textInput.View(format,
 			DEFINE_TEMPLATE_NAME_TEXT,
-			m.textInput.TextInput.View(),
-			"(ctrl+s to save)",
-			"(ctrl+c to quit)",
 			errorMessage,
 		)
 	}

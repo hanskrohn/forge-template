@@ -18,6 +18,8 @@ func (m CreateFileOrDirFromTemplateModel) Update(msg tea.Msg) (tea.Model, tea.Cm
 		cmd = m.list.Update(msg)
 	}else if m.templateData.mode == modeDefiningVariableNames{
 		cmd = m.textInput.Update(msg)
+	}else if m.templateData.mode == modeDefiningFileName{
+		cmd = m.textInput.Update(msg)
 	}
 
 	return m, cmd
@@ -38,16 +40,23 @@ func (m CreateFileOrDirFromTemplateModel) View() string {
 			variable = (*m.templateData.variables)[m.templateData.variablesIndex].VariableName
 		}
 		
-		return m.textInput.View("%s %s\n\n%s\n\n%s\n%s",
+		return m.textInput.View("%s %s",
 			DEFINE_VALUE_FOR_VARIABLE_TEXT,
 			variable,
-			m.textInput.TextInput.View(),
-			"(ctrl+s to save)",
-			"(ctrl+c to quit)",
+		)
+	}else if m.templateData.mode == modeDefiningFileName {
+		return m.textInput.View("%s",
+			DEFINE_FILE_NAME_TEXT,
 		)
 	}
 
 	return UNKNOWN_MODE_ERROR_TEXT
+}
+
+func setMode(m *CreateFileOrDirFromTemplateModel, mode mode, placeholder string) {
+	m.textInput.Init(placeholder)
+	m.textInput.TextInput.Focus()
+	m.templateData.mode = mode
 }
 
 func (createFileOrDirFromTemplate *CreateFileOrDirFromTemplateModel) createFileOrDirectory() {
@@ -73,37 +82,43 @@ func (createFileOrDirFromTemplate *CreateFileOrDirFromTemplateModel) OnListSelec
 	var path string
 	if createFileOrDirFromTemplate.state.Action == state.CreateProjectFromTemplate {
 		path = projectTemplatePath
+		setMode(createFileOrDirFromTemplate, modeDefiningVariableNames, ENTER_TEMPLATE_VALUE_PLACEHOLDER)
 	} else if createFileOrDirFromTemplate.state.Action == state.CreateFileFromTemplate {
 		path = fileTemplatePath
+		setMode(createFileOrDirFromTemplate, modeDefiningFileName, ENTER_FILE_NAME_PLACEHOLDER)
 	}
 
 	createFileOrDirFromTemplate.templateData.fileContent = common.GetFileContent(path + string(os.PathSeparator) + value)
 	createFileOrDirFromTemplate.templateData.variables = common.GetVariablesFromContent(createFileOrDirFromTemplate.templateData.fileContent)
 
-	if len(*createFileOrDirFromTemplate.templateData.variables) == 0 {
+	if len(*createFileOrDirFromTemplate.templateData.variables) == 0 && createFileOrDirFromTemplate.templateData.mode != modeDefiningFileName{
 		createFileOrDirFromTemplate.createFileOrDirectory()
 		return tea.Quit
 	}
-	
-	createFileOrDirFromTemplate.templateData.mode = modeDefiningVariableNames
-	createFileOrDirFromTemplate.textInput.Init("Enter Name of template...")
-	createFileOrDirFromTemplate.textInput.TextInput.Focus()
 
 	return nil
 }
 
 func (createFileOrDirFromTemplate *CreateFileOrDirFromTemplateModel) OnTextInputConfirm(value string) tea.Cmd {
-	(*createFileOrDirFromTemplate.templateData.variables)[createFileOrDirFromTemplate.templateData.variablesIndex].VariableValue = value
-	createFileOrDirFromTemplate.templateData.variablesIndex++
-
-	if  createFileOrDirFromTemplate.templateData.variablesIndex >= len(*createFileOrDirFromTemplate.templateData.variables) {
-		createFileOrDirFromTemplate.createFileOrDirectory()
-		return tea.Quit
+	if createFileOrDirFromTemplate.templateData.mode == modeDefiningFileName {
+		if value != "" {
+			createFileOrDirFromTemplate.templateData.fileName = value
+		}
+		setMode(createFileOrDirFromTemplate, modeDefiningVariableNames, ENTER_TEMPLATE_VALUE_PLACEHOLDER)
+		return nil
+	}else{
+		(*createFileOrDirFromTemplate.templateData.variables)[createFileOrDirFromTemplate.templateData.variablesIndex].VariableValue = value
+		createFileOrDirFromTemplate.templateData.variablesIndex++
+	
+		if  createFileOrDirFromTemplate.templateData.variablesIndex >= len(*createFileOrDirFromTemplate.templateData.variables) {
+			createFileOrDirFromTemplate.createFileOrDirectory()
+			return tea.Quit
+		}
+	
+		createFileOrDirFromTemplate.textInput.TextInput.SetValue("")
+	
+		return nil
 	}
-
-	createFileOrDirFromTemplate.textInput.TextInput.SetValue("")
-
-	return nil
 }
 
 func CreateFileOrDirectory(s *state.State) {

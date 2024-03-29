@@ -6,6 +6,12 @@ const DEFINE_CONTENT_TEXT = "Please define the content of the template. Referenc
 
 const DEFINE_VALUE_FOR_VARIABLE_TEXT = "Define value for variable:"
 
+const DEFINE_FILE_NAME_TEXT = "Define File Name"
+
+const ENTER_TEMPLATE_VALUE_PLACEHOLDER = "Enter Name of template variable..."
+
+const ENTER_FILE_NAME_PLACEHOLDER = "Enter Name of file..."
+
 const UNKNOWN_MODE_ERROR_TEXT = "UNKNOWN MODE: Please report this issue at https://github.com/hanskrohn/forge-template/issues"
 
 type mode int
@@ -15,4 +21,5 @@ const (
 	modeDefiningContent
 	modeSelectingTemplate
 	modeDefiningVariableNames
+	modeDefiningFileName
 )

@@ -32,6 +32,8 @@ func (l *TextArea) Update(msg tea.Msg) tea.Cmd {
 	return nil
 }
 
-func (l *TextArea) View(format string, a ...any) string {
-	return fmt.Sprintf(format, a...)
+func (l *TextArea) View(format string, header ...any) string {
+	format += "\n\n%s\n\n%s\n%s"
+	header = append(header, l.TextArea.View(), "(ctrl+s to save)", "(ctrl+c to quit)")
+	return fmt.Sprintf(format, header...)
 }
