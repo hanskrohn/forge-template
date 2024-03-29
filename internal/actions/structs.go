@@ -19,14 +19,14 @@ type deleteModel struct {
 type createTemplateModel struct {
 	textInput 		*tui.TextInput
 	textArea		*tui.TextArea
-	templateData 	*createTemplateData
+	templateData 	*CreateTemplateData
 	state   		*state.State
 	errorTracker 	*errorTracker
 }
 
-type createTemplateData struct {
-	fileName string
-	mode     mode
+type CreateTemplateData struct {
+	TemplateName string
+	Mode     mode
 }
 
 type CreateFileOrDirFromTemplateModel struct {

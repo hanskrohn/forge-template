@@ -11,6 +11,7 @@ var fileTemplateName string
 
 var createFileCmd = &cobra.Command{
 	Use:   "create-file",
+	Aliases: []string{"cf", "c-f"},
 	Short: "Create a file from a template",
 	Long:  `Create a file from a template with the given name`,
 	Run: func(cmd *cobra.Command, args []string) {
