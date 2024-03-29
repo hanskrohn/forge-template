@@ -6,11 +6,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var Version string
+
 var rootCmd = &cobra.Command{
 	Use:   "forge-template",
 	Short: "create boilerplate code",
 	Long:  `create boilerplate code`,
-	Version: "1.0.1", // Make this dynamic
+	Version: Version,
 	Run: func(cmd *cobra.Command, args []string) {
 		s := state.New()
 
@@ -26,6 +28,9 @@ var rootCmd = &cobra.Command{
 			actions.DeleteTemplate(s)
 		}
 	},
+}
+
+func init() {
 }
 
 func Execute() {
