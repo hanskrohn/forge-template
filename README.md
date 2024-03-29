@@ -20,6 +20,14 @@ Tired of repetitive, boilerplate code? `forge-template` is here to rescue you! N
   - [Defining a project template](#defining-a-project-template)
     - [Project Template Syntax](#project-template-syntax)
   - [Defining a project template Example](#defining-a-project-template-example)
+  - [Using Terminal commands](#using-terminal-commands)
+    - [Help Tool](#help-tool)
+    - [Terminal command for creating a file template](#terminal-command-for-creating-a-file-template)
+    - [Terminal command for creating a project template](#terminal-command-for-creating-a-project-template)
+    - [Terminal command for creating a project from a template](#terminal-command-for-creating-a-project-from-a-template)
+    - [Terminal command for creating a file from a template](#terminal-command-for-creating-a-file-from-a-template)
+    - [Terminal command for deleting a project template](#terminal-command-for-deleting-a-project-template)
+    - [Terminal command for deleting a file template](#terminal-command-for-deleting-a-file-template)
 
 ## Installation
 
@@ -158,3 +166,131 @@ basic-project
 4. Run `forge-template` again and select `Create Project From Template`
 5. Use the arrow keys to select `basic-structure`
 6. View the newly generated file with your favorite text editor
+
+## Using Terminal commands
+
+### Help Tool
+
+If you forget any command and need help on the fly use the `--help` or `-h` flag. This flag is used at the end of the command you want to run to explain the final command.
+
+For example, `forge-template --help` will open a tool tip explaining the forge-template command, possible flags, and available commands that can be used.
+
+### Terminal command for creating a file template
+
+To create a file template, use the following command in terminal
+
+```bash
+forge-template create-template --file --templateName <DESIRED_TEMPLATE_NAME>
+```
+
+Alternatively, this command can be written short form as
+
+```bash
+forge-template ct -f -t <DESIRED_TEMPLATE_NAME>
+```
+
+For more info run
+
+```bash
+forge-template ct -h
+```
+
+### Terminal command for creating a project template
+
+To create a project template, use the following command in terminal
+
+```bash
+forge-template create-template --project --templateName <DESIRED_TEMPLATE_NAME>
+```
+
+Alternatively, this command can be written short form as
+
+```bash
+forge-template ct -p -t <DESIRED_TEMPLATE_NAME>
+```
+
+For more info run
+
+```bash
+forge-template ct -h
+```
+
+### Terminal command for creating a project from a template
+
+To create a project from a template, use the following command in terminal
+
+```bash
+forge-template create-project --templateName <YOUR_TEMPLATE_NAME>
+```
+
+Alternatively, this command can be written short form as
+
+```bash
+forge-template cp -t <YOUR_TEMPLATE_NAME>
+```
+
+For more info run
+
+```bash
+forge-template cp -h
+```
+
+### Terminal command for creating a file from a template
+
+To create a file from a template, use the following command in terminal
+
+```bash
+forge-template create-file --filename <DESIRED_FILE_NAME> --templateName <YOUR_TEMPLATE_NAME>
+```
+
+Alternatively, this command can be written short form as
+
+```bash
+forge-template cf -f <DESIRED_FILE_NAME> -t <YOUR_TEMPLATE_NAME>
+```
+
+For more info run
+
+```bash
+forge-template cf -h
+```
+
+### Terminal command for deleting a project template
+
+To delete a project template, use the following command in terminal
+
+```bash
+forge-template delete-template --project --templateName <DESIRED_TEMPLATE_NAME>
+```
+
+Alternatively, this command can be written short form as
+
+```bash
+forge-template dt -p -t <DESIRED_TEMPLATE_NAME>
+```
+
+For more info run
+
+```bash
+forge-template dt -h
+```
+
+### Terminal command for deleting a file template
+
+To delete a file template, use the following command in terminal
+
+```bash
+forge-template delete-template --file --templateName <DESIRED_TEMPLATE_NAME>
+```
+
+Alternatively, this command can be written short form as
+
+```bash
+forge-template dt -f -t <DESIRED_TEMPLATE_NAME>
+```
+
+For more info run
+
+```bash
+forge-template dt -h
+```
