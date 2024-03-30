@@ -27,7 +27,7 @@ func (m deleteModel) OnListSelect(value string) tea.Cmd {
 	projectTemplatePath, fileTemplatePath := common.GetImportantDirectories()
 
 	var path string
-	if m.state.Action == state.DeleteProjectTemplate {
+	if m.state.Action == state.DeleteDirectoryTemplate {
 		path = projectTemplatePath
 	} else if m.state.Action == state.DeleteFileTemplate {
 		path = fileTemplatePath
@@ -46,7 +46,7 @@ func DeleteTemplate(s *state.State, fileName string) {
 	projectTemplateFileNames, fileTemplateFileNames := common.GetTemplates()
 
 	var choices []string
-	if (s.Action == state.CreateProjectFromTemplate) {
+	if (s.Action == state.CreateDirectoryFromTemplate) {
 		choices = projectTemplateFileNames
 	}else{
 		choices = fileTemplateFileNames

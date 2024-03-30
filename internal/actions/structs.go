@@ -6,11 +6,19 @@ import (
 	"github.com/hanskrohn/forge-template/internal/tui"
 )
 
-type CreateFileModel struct{
+type createFileModel struct{
 	textInput     *tui.TextInput
 	list      	  *tui.List
-	UserInputData *UserInputData
+	userInputData *UserInputData
 	templateData  *templateData
+}
+
+type createDirectoryModel struct{
+	textInput     *tui.TextInput
+	list      	  *tui.List
+	userInputData *UserInputData
+	templateData  *templateData
+	errorTracker  *errorTracker
 }
 
 type UserInputData struct {

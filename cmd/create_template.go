@@ -12,10 +12,10 @@ var createTemplateCmd = &cobra.Command{
 	Use:   "create-template",
 	Aliases: []string{"ct", "c-t"},
 	Short: "Create a new template",
-	Long:  `Create a new project or file template`,
+	Long:  `Create a new sirectory or file template`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if isFile == isProject {
-            fmt.Println("You must specify either --file or --project.")
+		if isFile == isDirectory {
+            fmt.Println("You must specify either --file or --Directory.")
             return
         }
 
@@ -23,7 +23,7 @@ var createTemplateCmd = &cobra.Command{
 		if isFile {
 			s = state.New(state.CreateFileTemplate)
 		}else{
-			s = state.New(state.CreateProjectTemplate)
+			s = state.New(state.CreateDirectoryTemplate)
 		}
 
 		c := actions.CreateTemplateData{
@@ -37,7 +37,7 @@ var createTemplateCmd = &cobra.Command{
 
 func AddCreateTemplateCommand(rootCmd *cobra.Command) {
 	createTemplateCmd.Flags().BoolVarP(&isFile, "file", "f", false, "Create a file template")
-    createTemplateCmd.Flags().BoolVarP(&isProject, "project", "p", false, "Create a project template")
+    createTemplateCmd.Flags().BoolVarP(&isDirectory, "directory", "p", false, "Create a directory template")
 
 	createTemplateCmd.Flags().StringVarP(&templateName, "templateName", "t", "", "Template name (required)")
 	createTemplateCmd.MarkFlagRequired("templateName")

@@ -23,12 +23,16 @@ var rootCmd = &cobra.Command{
 			actions.CreateFile(nil)
 			return
 		}
+		if(selectedAction == state.CreateDirectoryFromTemplate) {
+			actions.CreateDirectory(nil)
+			return
+		}
 
-		if(selectedAction == state.CreateProjectTemplate || selectedAction == state.CreateFileTemplate) {
+		if(selectedAction == state.CreateDirectoryTemplate || selectedAction == state.CreateFileTemplate) {
 			actions.CreateTemplate(s, nil)
-		}else if(selectedAction == state.CreateProjectFromTemplate || selectedAction == state.CreateFileFromTemplate) {
-			actions.CreateFileOrDirectory(s, nil)
-		}else if (selectedAction == state.DeleteProjectTemplate || selectedAction == state.DeleteFileTemplate) {
+		}else if(selectedAction == state.CreateDirectoryFromTemplate || selectedAction == state.CreateFileFromTemplate) {
+			// actions.CreateFileOrDirectory(s, nil)
+		}else if (selectedAction == state.DeleteDirectoryTemplate || selectedAction == state.DeleteFileTemplate) {
 			actions.DeleteTemplate(s, "")
 		}
 	},
@@ -36,11 +40,23 @@ var rootCmd = &cobra.Command{
 
 func init() {
 	AddCreateFileCommand(rootCmd)
-	AddCreateProjectCommand(rootCmd)
+	AddCreateDirectoryCommand(rootCmd)
 	AddCreateTemplateCommand(rootCmd)
 	AddDeleteTemplateCommand(rootCmd)
 }
 
 func Execute() {
 	cobra.CheckErr(rootCmd.Execute())
+}
+
+func newUserInputData(templateName string, fileName string) *actions.UserInputData {
+	f := templateName
+	if fileName != "" {
+		f = fileName
+	}
+
+	return &actions.UserInputData {
+		TemplateName: templateName,
+		FileName: f,
+	}
 }

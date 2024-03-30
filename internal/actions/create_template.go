@@ -72,7 +72,7 @@ func (createTemplate *createTemplateModel) TextAreaOnConfirmFunction(value strin
 	
 	var path string
 
-	if createTemplate.state.Action == state.CreateProjectTemplate {
+	if createTemplate.state.Action == state.CreateDirectoryTemplate {
 		_, err := directories.BuildTree(value)
 		if err != nil {
 			createTemplate.errorTracker.errorHappened = true

@@ -9,16 +9,14 @@ import (
 	"github.com/hanskrohn/forge-template/internal/tui"
 )
 
-var _, fileTemplatePath = common.GetImportantDirectories()
-
-func (c CreateFileModel) Init() tea.Cmd {
+func (c createFileModel) Init() tea.Cmd {
 	c.list.Init()
 	c.textInput.Init(DEFINE_FILE_NAME_TEXT)
 
 	return nil
 }
 
-func (c CreateFileModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (c createFileModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
 	if c.templateData.mode == ModeSelectingTemplate{
@@ -30,7 +28,7 @@ func (c CreateFileModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return c, cmd
 }
 
-func (c CreateFileModel) View() string {
+func (c createFileModel) View() string {
 	if c.templateData.mode == ModeSelectingTemplate {
 		return c.list.View("Select template:")
 	}
@@ -53,7 +51,7 @@ func (c CreateFileModel) View() string {
 }	
 
 func CreateFile(userInputData *UserInputData) {
-	c := createFileModel(userInputData)
+	c := newCreateFileModel(userInputData)
 	if c == nil {
 		return
 	}
@@ -80,9 +78,9 @@ func createFile(content string, variables *[]*common.Variable, fileName string) 
 	files.CreateFile(c, dir + string(os.PathSeparator) + fileName, true)
 }
 
-func (c CreateFileModel) onListSelect(value string) tea.Cmd {
-	c.UserInputData.TemplateName = value
-	c.UserInputData.FileName = value
+func (c createFileModel) onListSelect(value string) tea.Cmd {
+	c.userInputData.TemplateName = value
+	c.userInputData.FileName = value
 
 	content, variables := common.GetFileContentAndVariables(fileTemplatePath + string(os.PathSeparator) + value)
 
@@ -94,14 +92,14 @@ func (c CreateFileModel) onListSelect(value string) tea.Cmd {
 	return nil
 }
 
-func (c CreateFileModel) onTextInputConfirm(value string) tea.Cmd {
+func (c createFileModel) onTextInputConfirm(value string) tea.Cmd {
 	if c.templateData.mode == ModeDefiningFileName {
 		if value != "" {
-			c.UserInputData.FileName = value
+			c.userInputData.FileName = value
 		}
 
 		if len(*c.templateData.variables) == 0 {
-			createFile(c.templateData.content, c.templateData.variables, c.UserInputData.FileName)
+			createFile(c.templateData.content, c.templateData.variables, c.userInputData.FileName)
 			return tea.Quit
 		}
 
@@ -115,14 +113,14 @@ func (c CreateFileModel) onTextInputConfirm(value string) tea.Cmd {
 	c.templateData.variableIndex++
 
 	if c.templateData.variableIndex >= len(*c.templateData.variables) {
-		createFile(c.templateData.content, c.templateData.variables, c.UserInputData.FileName)
+		createFile(c.templateData.content, c.templateData.variables, c.userInputData.FileName)
 		return tea.Quit
 	}
 
 	return nil
 }
 
-func createFileModel(userInputData *UserInputData) *CreateFileModel {
+func newCreateFileModel(userInputData *UserInputData) *createFileModel {
 	mode := ModeSelectingTemplate
 	templateData := &templateData{
 		variableIndex: 0,
@@ -144,15 +142,15 @@ func createFileModel(userInputData *UserInputData) *CreateFileModel {
 	}
 	
 	templateData.mode = mode
-	_, fileTemplateName := common.GetTemplates()
+	_, fileTemplateFileNames := common.GetTemplates()
 
-	c := CreateFileModel{
+	c := createFileModel{
 		list: &tui.List{
-			Choices: fileTemplateName,
+			Choices: fileTemplateFileNames,
 			Cursor: 0,
 		},
 		textInput: &tui.TextInput{},
-		UserInputData: u,
+		userInputData: u,
 		templateData: templateData,
 	}
 

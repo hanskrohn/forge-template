@@ -13,10 +13,10 @@ var deleteTemplateCmd = &cobra.Command{
 	Use:   "delete-template",
 	Aliases: []string{"dt", "d-t"},
 	Short: "Delete a template",
-	Long:  `Delete a project or file template`,
+	Long:  `Delete a directory or file template`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if isFile == isProject {
-            fmt.Println("You must specify either --file or --project.")
+		if isFile == isDirectory {
+            fmt.Println("You must specify either --file or --Directory.")
             return
         }
 
@@ -24,7 +24,7 @@ var deleteTemplateCmd = &cobra.Command{
 		if isFile {
 			s = state.New(state.DeleteFileTemplate)
 		}else{
-			s = state.New(state.DeleteProjectTemplate)
+			s = state.New(state.DeleteDirectoryTemplate)
 		}
 		
 		actions.DeleteTemplate(s, templateName)
@@ -33,7 +33,7 @@ var deleteTemplateCmd = &cobra.Command{
 
 func AddDeleteTemplateCommand(rootCmd *cobra.Command) {
 	deleteTemplateCmd.Flags().BoolVarP(&isFile, "file", "f", false, "Create a file template")
-    deleteTemplateCmd.Flags().BoolVarP(&isProject, "project", "p", false, "Create a project template")
+    deleteTemplateCmd.Flags().BoolVarP(&isDirectory, "directory", "p", false, "Create a directory template")
 
 	deleteTemplateCmd.Flags().StringVarP(&templateName, "templateName", "t", "", "Template name (required)")
 	deleteTemplateCmd.MarkFlagRequired("templateName")

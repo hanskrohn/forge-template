@@ -23,11 +23,11 @@ func (m mainMenuModel) View() string {
 
 func DisplayMainMenu(s *state.State) {
 	choices := []string{
-		state.CreateProjectTemplate.String(),
+		state.CreateDirectoryTemplate.String(),
 		state.CreateFileTemplate.String(),
-		state.CreateProjectFromTemplate.String(),
+		state.CreateDirectoryFromTemplate.String(),
 		state.CreateFileFromTemplate.String(),
-		state.DeleteProjectTemplate.String(),
+		state.DeleteDirectoryTemplate.String(),
 		state.DeleteFileTemplate.String(),
 	}
 

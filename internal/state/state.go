@@ -4,11 +4,11 @@ type Action int
 
 const (
 	Unknown Action = iota
-	CreateProjectTemplate
+	CreateDirectoryTemplate
 	CreateFileTemplate
-	CreateProjectFromTemplate
+	CreateDirectoryFromTemplate
 	CreateFileFromTemplate
-	DeleteProjectTemplate
+	DeleteDirectoryTemplate
 	DeleteFileTemplate
 	SaveToGithub
 )
@@ -17,16 +17,16 @@ func (a Action) String() string {
     switch a {
     case Unknown:
         return "Unknown"
-    case CreateProjectTemplate:
-        return "Create Project Template"
+    case CreateDirectoryTemplate:
+        return "Create Directory Template"
     case CreateFileTemplate:
         return "Create File Template"
-    case CreateProjectFromTemplate:
-        return "Create Project From Template"
+    case CreateDirectoryFromTemplate:
+        return "Create Directory From Template"
     case CreateFileFromTemplate:
         return "Create File From Template"
-    case DeleteProjectTemplate:
-        return "Delete Project Template"
+    case DeleteDirectoryTemplate:
+        return "Delete Directory Template"
     case DeleteFileTemplate:
         return "Delete File Template"
     case SaveToGithub:
@@ -40,16 +40,16 @@ func StringToAction(s string) Action {
     switch s {
     case "Unknown":
         return Unknown
-    case "Create Project Template":
-        return CreateProjectTemplate
+    case "Create Directory Template":
+        return CreateDirectoryTemplate
     case "Create File Template":
         return CreateFileTemplate
-    case "Create Project From Template":
-        return CreateProjectFromTemplate
+    case "Create Directory From Template":
+        return CreateDirectoryFromTemplate
     case "Create File From Template":
         return CreateFileFromTemplate
-    case "Delete Project Template":
-        return DeleteProjectTemplate
+    case "Delete Directory Template":
+        return DeleteDirectoryTemplate
     case "Delete File Template":
         return DeleteFileTemplate
     case "Save To Github":

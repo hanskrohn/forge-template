@@ -23,15 +23,3 @@ func AddCreateFileCommand(rootCmd *cobra.Command) {
 
 	rootCmd.AddCommand(createFileCmd)
 }
-
-func newUserInputData(templateName string, fileName string) *actions.UserInputData {
-	f := templateName
-	if fileName != "" {
-		f = fileName
-	}
-
-	return &actions.UserInputData {
-		TemplateName: templateName,
-		FileName: f,
-	}
-}
