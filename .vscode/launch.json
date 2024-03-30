@@ -15,7 +15,7 @@
       "request": "launch",
       "mode": "auto",
       "program": "${workspaceFolder}/main.go",
-      "args": ["create-file", "-t", "temo", "-f", "User.tsx"],
+      "args": ["dt", "-d", "-t", "n-test"],
       "console": "integratedTerminal"
     }
   ]

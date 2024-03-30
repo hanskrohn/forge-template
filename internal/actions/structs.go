@@ -6,47 +6,63 @@ import (
 	"github.com/hanskrohn/forge-template/internal/tui"
 )
 
-type mainMenuModel struct {
+type Interacting int
+
+const (
+	Unknown Interacting = iota
+	InteractingWithDirectoryTemplate
+	InteractingWithFileTemplate
+)
+
+type createFileModel struct{
+	textInput     *tui.TextInput
+	list      	  *tui.List
+	userInputData *UserInputData
+	templateData  *templateData
+}
+
+type createDirectoryModel struct{
+	textInput     *tui.TextInput
+	list      	  *tui.List
+	userInputData *UserInputData
+	templateData  *templateData
+	errorTracker  *errorTracker
+}
+
+type createTemplateModel struct{
+	textInput     *tui.TextInput
+	textArea      *tui.TextArea
+	userInputData *UserInputData
+	templateData  *templateData
+	errorTracker  *errorTracker
+}
+
+type deleteTemplateModel struct {
 	list 	*tui.List
-	state   *state.State
+	userInputData *UserInputData
 }
 
-type deleteModel struct {
-	list 	*tui.List
-	state   *state.State
-}
-
-type createTemplateModel struct {
-	textInput 		*tui.TextInput
-	textArea		*tui.TextArea
-	templateData 	*CreateTemplateData
-	state   		*state.State
-	errorTracker 	*errorTracker
-}
-
-type CreateTemplateData struct {
+type UserInputData struct {
+	FileName     string
 	TemplateName string
-	Mode     mode
+	isDirAction  bool
 }
 
-type CreateFileOrDirFromTemplateModel struct {
-	list 			*tui.List
-	textInput 		*tui.TextInput
-	templateData 	*CreateFileOrDirFromTemplateData
-	state   		*state.State
-	errorTracker 	*errorTracker
-}
-
-type CreateFileOrDirFromTemplateData struct {
-	variables 	   *[]*common.Variable 
-	variablesIndex int
-	fileContent    string
-	TemplateName   string
-	FileName  	   string
-	Mode      	   mode
+type templateData struct {
+	content       string
+	variables 	  *[]*common.Variable
+	variableIndex int
+	mode		  mode
 }
 
 type errorTracker struct {
 	errorHappened bool
 	err			  error
+}
+
+
+
+type mainMenuModel struct {
+	list 	*tui.List
+	state   *state.State
 }

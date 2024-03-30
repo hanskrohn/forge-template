@@ -1,10 +1,18 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/hanskrohn/forge-template/internal/actions"
 	"github.com/hanskrohn/forge-template/internal/state"
 	"github.com/spf13/cobra"
 )
+
+var isFile bool
+var isDirectory bool
+
+var fileName string
+var templateName string
 
 var Version string = "1.1.2"
 
@@ -18,25 +26,47 @@ var rootCmd = &cobra.Command{
 
 		actions.DisplayMainMenu(s)
 
-		selectedAction := s.Action
 
-		if(selectedAction == state.CreateProjectTemplate || selectedAction == state.CreateFileTemplate) {
-			actions.CreateTemplate(s, nil)
-		}else if(selectedAction == state.CreateProjectFromTemplate || selectedAction == state.CreateFileFromTemplate) {
-			actions.CreateFileOrDirectory(s, nil)
-		}else if (selectedAction == state.DeleteProjectTemplate || selectedAction == state.DeleteFileTemplate) {
-			actions.DeleteTemplate(s, "")
+		switch s.Action {
+		case state.CreateDirectoryFromTemplate:
+			actions.CreateDirectory(nil)
+		case state.CreateFileFromTemplate:
+			actions.CreateFile(nil)
+		case state.CreateDirectoryTemplate:
+			actions.CreateTemplate(nil, true)
+		case state.CreateFileTemplate:
+			actions.CreateTemplate(nil, false)
+		case state.DeleteDirectoryTemplate:
+			actions.DeleteTemplate(nil, true)
+		case state.DeleteFileTemplate:
+			actions.DeleteTemplate(nil, false)
+		case state.SaveToGithub:
+			fallthrough
+		default:
+			fmt.Println("Unknown action")
 		}
 	},
 }
 
 func init() {
 	AddCreateFileCommand(rootCmd)
-	AddCreateProjectCommand(rootCmd)
+	AddCreateDirectoryCommand(rootCmd)
 	AddCreateTemplateCommand(rootCmd)
 	AddDeleteTemplateCommand(rootCmd)
 }
 
 func Execute() {
 	cobra.CheckErr(rootCmd.Execute())
+}
+
+func newUserInputData(templateName string, fileName string) *actions.UserInputData {
+	f := templateName
+	if fileName != "" {
+		f = fileName
+	}
+
+	return &actions.UserInputData {
+		TemplateName: templateName,
+		FileName: f,
+	}
 }

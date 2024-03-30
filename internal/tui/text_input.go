@@ -11,6 +11,7 @@ import (
 func (l *TextInput) Init(placeholder string) tea.Cmd {
 	l.TextInput = textinput.New()
 	l.TextInput.Placeholder = placeholder
+	l.TextInput.Focus()
 
     return nil
 }

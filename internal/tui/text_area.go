@@ -13,6 +13,7 @@ func (l *TextArea) Init(placeholder string) tea.Cmd {
 	l.TextArea.Placeholder = placeholder
 	l.TextArea.SetHeight(10)
 	l.TextArea.SetWidth(175)
+	l.TextArea.Focus()
 
     return nil
 }

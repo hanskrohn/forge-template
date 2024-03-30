@@ -17,16 +17,16 @@ Tired of repetitive, boilerplate code? `forge-template` is here to rescue you! N
     - [Escaping Variable Values](#escaping-variable-values)
   - [Defining a file template](#defining-a-file-template)
     - [Defining a file template Example](#defining-a-file-template-example)
-  - [Defining a project template](#defining-a-project-template)
-    - [Project Template Syntax](#project-template-syntax)
-  - [Defining a project template Example](#defining-a-project-template-example)
+  - [Defining a directory template](#defining-a-directory-template)
+    - [Directory Template Syntax](#directory-template-syntax)
+  - [Defining a directory template Example](#defining-a-directory-template-example)
   - [Using Terminal commands](#using-terminal-commands)
     - [Help Tool](#help-tool)
     - [Terminal command for creating a file template](#terminal-command-for-creating-a-file-template)
-    - [Terminal command for creating a project template](#terminal-command-for-creating-a-project-template)
-    - [Terminal command for creating a project from a template](#terminal-command-for-creating-a-project-from-a-template)
+    - [Terminal command for creating a directory template](#terminal-command-for-creating-a-directory-template)
+    - [Terminal command for creating a directory from a template](#terminal-command-for-creating-a-directory-from-a-template)
     - [Terminal command for creating a file from a template](#terminal-command-for-creating-a-file-from-a-template)
-    - [Terminal command for deleting a project template](#terminal-command-for-deleting-a-project-template)
+    - [Terminal command for deleting a directory template](#terminal-command-for-deleting-a-directory-template)
     - [Terminal command for deleting a file template](#terminal-command-for-deleting-a-file-template)
 
 ## Installation
@@ -136,22 +136,22 @@ export const <<ComponentName>>: React.FC\<<<ComponentName>>Props> = ({ }) {
 6. Provide the value `User` when prompted to provide a value for `ComponentName`. Press `Ctrl+s` to save
 7. View the newly generated file with your favorite text editor
 
-## Defining a project template
+## Defining a directory template
 
-To define a project template run `forge-template` and select the `Create Project Template` option. This will open up tool tips that prompt you for the project name and template code. Once this data is saved, you can run `forge-template` again and select `Create Project From Template` option. This will open a tool tip to select the file template you want to create, and prompt you to provide variables if necessary.
+To define a directory template run `forge-template` and select the `Create Directory Template` option. This will open up tool tips that prompt you for the directory name and template code. Once this data is saved, you can run `forge-template` again and select `Create Directory From Template` option. This will open a tool tip to select the file template you want to create, and prompt you to provide variables if necessary.
 
-### Project Template Syntax
+### Directory Template Syntax
 
 - Use `<<>>` to define variable values
 - The root element should have no leading symbols or spaces
-- Use `.` as the root element to define the project structure to build out from current directory
+- Use `.` as the root element to define the directory structure to build out from current directory
 - Child directories and files should have 3 leading spaces. If you have more than 3 you will get an error and less than three will not result in a child element being created
 - Directories are prefaced with `|--`
 - Files are prefaced with `|-`
 
-## Defining a project template Example
+## Defining a directory template Example
 
-1. Run `forge-template` and select `Create Project Template`
+1. Run `forge-template` and select `Create Directory Template`
 2. Provide the name `basic-structure` in the input box and press `Ctrl+s` to save
 3. Provide the following template code in the text area and press `Ctrl+s` to save
 
@@ -163,7 +163,7 @@ basic-project
       |-- index.test.js
 ```
 
-4. Run `forge-template` again and select `Create Project From Template`
+4. Run `forge-template` again and select `Create Directory From Template`
 5. Use the arrow keys to select `basic-structure`
 6. View the newly generated file with your favorite text editor
 
@@ -195,18 +195,18 @@ For more info run
 forge-template ct -h
 ```
 
-### Terminal command for creating a project template
+### Terminal command for creating a directory template
 
-To create a project template, use the following command in terminal
+To create a directory template, use the following command in terminal
 
 ```bash
-forge-template create-template --project --templateName <DESIRED_TEMPLATE_NAME>
+forge-template create-template --directory --templateName <DESIRED_TEMPLATE_NAME>
 ```
 
 Alternatively, this command can be written short form as
 
 ```bash
-forge-template ct -p -t <DESIRED_TEMPLATE_NAME>
+forge-template ct -d -t <DESIRED_TEMPLATE_NAME>
 ```
 
 For more info run
@@ -215,24 +215,24 @@ For more info run
 forge-template ct -h
 ```
 
-### Terminal command for creating a project from a template
+### Terminal command for creating a directory from a template
 
-To create a project from a template, use the following command in terminal
+To create a directory from a template, use the following command in terminal
 
 ```bash
-forge-template create-project --templateName <YOUR_TEMPLATE_NAME>
+forge-template create-directory --templateName <YOUR_TEMPLATE_NAME>
 ```
 
 Alternatively, this command can be written short form as
 
 ```bash
-forge-template cp -t <YOUR_TEMPLATE_NAME>
+forge-template cd -t <YOUR_TEMPLATE_NAME>
 ```
 
 For more info run
 
 ```bash
-forge-template cp -h
+forge-template cd -h
 ```
 
 ### Terminal command for creating a file from a template
@@ -255,18 +255,18 @@ For more info run
 forge-template cf -h
 ```
 
-### Terminal command for deleting a project template
+### Terminal command for deleting a directory template
 
-To delete a project template, use the following command in terminal
+To delete a directory template, use the following command in terminal
 
 ```bash
-forge-template delete-template --project --templateName <DESIRED_TEMPLATE_NAME>
+forge-template delete-template --directory --templateName <DESIRED_TEMPLATE_NAME>
 ```
 
 Alternatively, this command can be written short form as
 
 ```bash
-forge-template dt -p -t <DESIRED_TEMPLATE_NAME>
+forge-template dt -d -t <DESIRED_TEMPLATE_NAME>
 ```
 
 For more info run
