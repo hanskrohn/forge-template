@@ -32,7 +32,7 @@ func (l *TextInput) Update(msg tea.Msg) tea.Cmd {
 }
 
 func (l *TextInput) View(format string, header ...any) string {
-	format += "\n\n%s\n\n%s\n%s"
-	header = append(header, l.TextInput.View(), "(ctrl+s to save)", "(ctrl+c to quit)")
+	format += INPUT_FORMAT_BASE_ACTIONS
+	header = append(header, l.TextInput.View(), SAVE_ACTION, QUIT_ACTION)
 	return fmt.Sprintf(format, header...)
 }
