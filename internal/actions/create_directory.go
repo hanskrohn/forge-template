@@ -99,6 +99,8 @@ func (c createDirectoryModel) onTextInputConfirm(value string) tea.Cmd {
 		return tea.Quit
 	}
 
+	c.textInput.TextInput.SetValue("")
+
 	return nil
 }
 

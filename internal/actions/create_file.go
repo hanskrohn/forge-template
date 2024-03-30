@@ -117,6 +117,8 @@ func (c createFileModel) onTextInputConfirm(value string) tea.Cmd {
 		return tea.Quit
 	}
 
+	c.textInput.TextInput.SetValue("")
+
 	return nil
 }
 

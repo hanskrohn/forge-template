@@ -21,6 +21,14 @@ type createDirectoryModel struct{
 	errorTracker  *errorTracker
 }
 
+type createDirectoryTemplateModel struct{
+	textInput     *tui.TextInput
+	textArea      *tui.TextArea
+	userInputData *UserInputData
+	templateData  *templateData
+	errorTracker  *errorTracker
+}
+
 type UserInputData struct {
 	FileName     string
 	TemplateName string
@@ -31,6 +39,11 @@ type templateData struct {
 	variables 	  *[]*common.Variable
 	variableIndex int
 	mode		  mode
+}
+
+type errorTracker struct {
+	errorHappened bool
+	err			  error
 }
 
 
@@ -73,9 +86,4 @@ type CreateFileOrDirFromTemplateData struct {
 	TemplateName   string
 	FileName  	   string
 	Mode      	   mode
-}
-
-type errorTracker struct {
-	errorHappened bool
-	err			  error
 }

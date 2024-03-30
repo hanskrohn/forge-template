@@ -14,6 +14,8 @@ const ENTER_TEMPLATE_VALUE_PLACEHOLDER = "Enter Name of template variable..."
 
 const ENTER_FILE_NAME_PLACEHOLDER = "Enter Name of file..."
 
+const ENTER_FILE_CONTENT_PLACEHOLDER = "Enter content..."
+
 const UNKNOWN_MODE_ERROR_TEXT = "UNKNOWN MODE: Please report this issue at https://github.com/hanskrohn/forge-template/issues"
 
 var projectTemplatePath, fileTemplatePath = common.GetImportantDirectories()
