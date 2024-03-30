@@ -4,32 +4,31 @@ import (
 	"os"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/hanskrohn/forge-template/internal/common"
 	"github.com/hanskrohn/forge-template/internal/create/directories"
 	"github.com/hanskrohn/forge-template/internal/create/files"
 	"github.com/hanskrohn/forge-template/internal/tui"
 )
 
-func (c createDirectoryTemplateModel) Init() tea.Cmd {
+func (c createTemplateModel) Init() tea.Cmd {
 	c.textInput.Init(DEFINE_FILE_NAME_TEXT)
 	c.textArea.Init(ENTER_FILE_CONTENT_PLACEHOLDER)
 
 	return nil
 }
 
-func (c createDirectoryTemplateModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
+func (c createTemplateModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
 
 	if c.templateData.mode == ModeDefiningContent {
 		cmd = c.textArea.Update(msg)
-	}else if c.templateData.mode == ModeDefiningName {
+	}else if c.templateData.mode == ModeDefiningFileName {
 		cmd = c.textInput.Update(msg)
 	}
 
 	return c, cmd
 }
 
-func (c createDirectoryTemplateModel) View() string {
+func (c createTemplateModel) View() string {
 	var errorMessage string
 	var format string = "%s\n%s"
 
@@ -52,8 +51,8 @@ func (c createDirectoryTemplateModel) View() string {
 	)
 }	
 
-func CreateDirectoryTemplate(userInputData *UserInputData) {
-	c := newCreateDirectoryTemplateModel(userInputData)
+func CreateTemplate(userInputData *UserInputData, isDirAction bool) {
+	c := newCreateTemplateModel(userInputData, isDirAction)
 	if c == nil {
 		return
 	}
@@ -69,39 +68,32 @@ func CreateDirectoryTemplate(userInputData *UserInputData) {
 // +     Helpers	 +
 // +++++++++++++++++++
 
-func createTemplate(content string, variables *[]*common.Variable, fileName string) {
-	c := common.ReplaceVariablesInContent(content, variables)
-		
-	dir, err := os.Getwd()
-	if err != nil {
-		panic(err)
-	}
-
-	files.CreateFile(c, dir + string(os.PathSeparator) + fileName, true)
-}
-
-func (c *createDirectoryTemplateModel) onTextInputConfirm(value string) tea.Cmd {
+func (c *createTemplateModel) onTextInputConfirm(value string) tea.Cmd {
 	c.userInputData.TemplateName = value
 	c.templateData.mode = ModeDefiningContent
 
 	return nil
 }
 
-func (c *createDirectoryTemplateModel) onTextAreaConfirm(value string) tea.Cmd {
-	_, err := directories.BuildTree(value)
-	if err != nil {
-		c.errorTracker.errorHappened = true
-		c.errorTracker.err = err // Let user retry
-		return nil
+func (c *createTemplateModel) onTextAreaConfirm(value string) tea.Cmd {
+	if c.userInputData.isDirAction {
+		_, err := directories.BuildTree(value)
+		if err != nil {
+			c.errorTracker.errorHappened = true
+			c.errorTracker.err = err // Let user retry
+			return nil
+		}
+	
+		files.CreateFile(value, directoryTemplatePath + string(os.PathSeparator) + c.userInputData.TemplateName, false)
+	} else {
+		files.CreateFile(value, fileTemplatePath + string(os.PathSeparator) + c.userInputData.TemplateName, false)
 	}
-
-	files.CreateFile(value, projectTemplatePath + string(os.PathSeparator) + c.userInputData.TemplateName, false)
 
 	return tea.Quit
 }
 
-func newCreateDirectoryTemplateModel(userInputData *UserInputData) *createDirectoryTemplateModel {
-	mode := ModeSelectingTemplate
+func newCreateTemplateModel(userInputData *UserInputData, isDirAction bool) *createTemplateModel {
+	mode := ModeDefiningFileName
 	templateData := &templateData{
 		variableIndex: 0,
 	}
@@ -113,8 +105,9 @@ func newCreateDirectoryTemplateModel(userInputData *UserInputData) *createDirect
 	}
 	
 	templateData.mode = mode
+	u.isDirAction = isDirAction
 
-	c := createDirectoryTemplateModel{
+	c := createTemplateModel{
 		textInput: &tui.TextInput{},
 		textArea: &tui.TextArea{},
 		userInputData: u,

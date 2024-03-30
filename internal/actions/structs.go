@@ -6,6 +6,14 @@ import (
 	"github.com/hanskrohn/forge-template/internal/tui"
 )
 
+type Interacting int
+
+const (
+	Unknown Interacting = iota
+	InteractingWithDirectoryTemplate
+	InteractingWithFileTemplate
+)
+
 type createFileModel struct{
 	textInput     *tui.TextInput
 	list      	  *tui.List
@@ -21,7 +29,7 @@ type createDirectoryModel struct{
 	errorTracker  *errorTracker
 }
 
-type createDirectoryTemplateModel struct{
+type createTemplateModel struct{
 	textInput     *tui.TextInput
 	textArea      *tui.TextArea
 	userInputData *UserInputData
@@ -29,9 +37,15 @@ type createDirectoryTemplateModel struct{
 	errorTracker  *errorTracker
 }
 
+type deleteTemplateModel struct {
+	list 	*tui.List
+	userInputData *UserInputData
+}
+
 type UserInputData struct {
 	FileName     string
 	TemplateName string
+	isDirAction  bool
 }
 
 type templateData struct {
@@ -51,39 +65,4 @@ type errorTracker struct {
 type mainMenuModel struct {
 	list 	*tui.List
 	state   *state.State
-}
-
-type deleteModel struct {
-	list 	*tui.List
-	state   *state.State
-}
-
-type createTemplateModel struct {
-	textInput 		*tui.TextInput
-	textArea		*tui.TextArea
-	templateData 	*CreateTemplateData
-	state   		*state.State
-	errorTracker 	*errorTracker
-}
-
-type CreateTemplateData struct {
-	TemplateName string
-	Mode     mode
-}
-
-type CreateFileOrDirFromTemplateModel struct {
-	list 			*tui.List
-	textInput 		*tui.TextInput
-	templateData 	*CreateFileOrDirFromTemplateData
-	state   		*state.State
-	errorTracker 	*errorTracker
-}
-
-type CreateFileOrDirFromTemplateData struct {
-	variables 	   *[]*common.Variable 
-	variablesIndex int
-	fileContent    string
-	TemplateName   string
-	FileName  	   string
-	Mode      	   mode
 }

@@ -75,7 +75,7 @@ func createDirectory(content string, variables *[]*common.Variable) {
 func (c createDirectoryModel) onListSelect(value string) tea.Cmd {
 	c.userInputData.TemplateName = value
 
-	content, variables := common.GetFileContentAndVariables(projectTemplatePath + string(os.PathSeparator) + value)
+	content, variables := common.GetFileContentAndVariables(directoryTemplatePath + string(os.PathSeparator) + value)
 
 	if len(*variables) == 0 {
 		createDirectory(content, variables)
@@ -112,7 +112,7 @@ func newCreateDirectoryModel(userInputData *UserInputData) *createDirectoryModel
 
 	u := &UserInputData{}
 	if userInputData != nil {
-		content, variables := common.GetFileContentAndVariables(projectTemplatePath + string(os.PathSeparator) + userInputData.TemplateName)
+		content, variables := common.GetFileContentAndVariables(directoryTemplatePath + string(os.PathSeparator) + userInputData.TemplateName)
 
 		if len(*variables) == 0 {
 			createDirectory(content, variables)
@@ -126,11 +126,11 @@ func newCreateDirectoryModel(userInputData *UserInputData) *createDirectoryModel
 	}
 	
 	templateData.mode = mode
-	projectTemplateFileNames, _ := common.GetTemplates()
+	directoryTemplateFileNames, _ := common.GetTemplates()
 
 	c := createDirectoryModel{
 		list: &tui.List{
-			Choices: projectTemplateFileNames,
+			Choices: directoryTemplateFileNames,
 			Cursor: 0,
 		},
 		textInput: &tui.TextInput{},

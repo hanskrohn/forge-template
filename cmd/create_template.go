@@ -14,14 +14,14 @@ var createTemplateCmd = &cobra.Command{
 	Long:  `Create a new sirectory or file template`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if isFile == isDirectory {
-            fmt.Println("You must specify either --file or --Directory.")
+            fmt.Println("You must specify either --file or --directory.")
             return
         }
 
 		if isFile {
-			fmt.Println("Not implemented yet")
+			actions.CreateTemplate(newUserInputData(templateName, fileName), false)
 		}else{
-			actions.CreateDirectoryTemplate(newUserInputData(templateName, fileName))
+			actions.CreateTemplate(newUserInputData(templateName, fileName), true)
 		}
 	},
 }

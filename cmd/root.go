@@ -1,10 +1,18 @@
 package cmd
 
 import (
+	"fmt"
+
 	"github.com/hanskrohn/forge-template/internal/actions"
 	"github.com/hanskrohn/forge-template/internal/state"
 	"github.com/spf13/cobra"
 )
+
+var isFile bool
+var isDirectory bool
+
+var fileName string
+var templateName string
 
 var Version string = "1.1.2"
 
@@ -18,22 +26,24 @@ var rootCmd = &cobra.Command{
 
 		actions.DisplayMainMenu(s)
 
-		selectedAction := s.Action
-		if(selectedAction == state.CreateFileFromTemplate) {
-			actions.CreateFile(nil)
-			return
-		}
-		if(selectedAction == state.CreateDirectoryFromTemplate) {
-			actions.CreateDirectory(nil)
-			return
-		}
 
-		if(selectedAction == state.CreateDirectoryTemplate || selectedAction == state.CreateFileTemplate) {
-			actions.CreateTemplate(s, nil)
-		}else if(selectedAction == state.CreateDirectoryFromTemplate || selectedAction == state.CreateFileFromTemplate) {
-			// actions.CreateFileOrDirectory(s, nil)
-		}else if (selectedAction == state.DeleteDirectoryTemplate || selectedAction == state.DeleteFileTemplate) {
-			actions.DeleteTemplate(s, "")
+		switch s.Action {
+		case state.CreateDirectoryFromTemplate:
+			actions.CreateDirectory(nil)
+		case state.CreateFileFromTemplate:
+			actions.CreateFile(nil)
+		case state.CreateDirectoryTemplate:
+			actions.CreateTemplate(nil, true)
+		case state.CreateFileTemplate:
+			actions.CreateTemplate(nil, false)
+		case state.DeleteDirectoryTemplate:
+			actions.DeleteTemplate(nil, true)
+		case state.DeleteFileTemplate:
+			actions.DeleteTemplate(nil, false)
+		case state.SaveToGithub:
+			fallthrough
+		default:
+			fmt.Println("Unknown action")
 		}
 	},
 }

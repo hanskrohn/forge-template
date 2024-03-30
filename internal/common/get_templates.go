@@ -7,10 +7,10 @@ import (
 func GetTemplates() ([]string, []string) {
 	projectTemplatePath, fileTemplatePath := GetImportantDirectories()
 
-	projectTemplateFileNames := getFileNamesForTemplates(projectTemplatePath)
+	directoryTemplateFileNames := getFileNamesForTemplates(projectTemplatePath)
 	fileTemplateFileNames := getFileNamesForTemplates(fileTemplatePath)
 
-	return projectTemplateFileNames, fileTemplateFileNames
+	return directoryTemplateFileNames, fileTemplateFileNames
 }
 
 func getFileNamesForTemplates(path string) []string {

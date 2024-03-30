@@ -19,7 +19,7 @@ func AddCreateFileCommand(rootCmd *cobra.Command) {
 	createFileCmd.Flags().StringVarP(&templateName, "templateName", "t", "", "Name of template to use (required)")
 	createFileCmd.MarkFlagRequired("templateName")
 
-	createFileCmd.Flags().StringVarP(&fileName, "fileName", "f", "", "Name of the file to create (required)")
+	createFileCmd.Flags().StringVarP(&fileName, "fileName", "f", "", "Name of the file to create (optional)")
 
 	rootCmd.AddCommand(createFileCmd)
 }
