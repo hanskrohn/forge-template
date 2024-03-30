@@ -6,8 +6,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var projectTemplateName string
-
 var createProjectCmd = &cobra.Command{
 	Use:   "create-project",
 	Aliases: []string{"cp", "c-p"},
@@ -16,7 +14,7 @@ var createProjectCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		s := state.New(state.CreateProjectFromTemplate)
 		c := actions.CreateFileOrDirFromTemplateData{
-			TemplateName: projectTemplateName,
+			TemplateName: templateName,
 			Mode:         actions.ModeDefiningVariableNames,
 		}
 
@@ -25,7 +23,7 @@ var createProjectCmd = &cobra.Command{
 }
 
 func AddCreateProjectCommand(rootCmd *cobra.Command) {
-	createProjectCmd.Flags().StringVarP(&projectTemplateName, "templateName", "t", "", "Name of template to use (required)")
+	createProjectCmd.Flags().StringVarP(&templateName, "templateName", "t", "", "Name of template to use (required)")
 	createProjectCmd.MarkFlagRequired("templateName")
 
 	rootCmd.AddCommand(createProjectCmd)

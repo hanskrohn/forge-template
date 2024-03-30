@@ -8,11 +8,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var isFile bool
-var isProject bool
-
-var templateName string
-
 var createTemplateCmd = &cobra.Command{
 	Use:   "create-template",
 	Aliases: []string{"ct", "c-t"},

@@ -2,12 +2,8 @@ package cmd
 
 import (
 	"github.com/hanskrohn/forge-template/internal/actions"
-	"github.com/hanskrohn/forge-template/internal/state"
 	"github.com/spf13/cobra"
 )
-
-var filename string
-var fileTemplateName string
 
 var createFileCmd = &cobra.Command{
 	Use:   "create-file",
@@ -15,23 +11,27 @@ var createFileCmd = &cobra.Command{
 	Short: "Create a file from a template",
 	Long:  `Create a file from a template with the given name`,
 	Run: func(cmd *cobra.Command, args []string) {
-		s := state.New(state.CreateFileFromTemplate)
-		c := actions.CreateFileOrDirFromTemplateData{
-			FileName: 	  filename,
-			TemplateName: fileTemplateName,
-			Mode:         actions.ModeDefiningVariableNames,
-		}
-		
-		actions.CreateFileOrDirectory(s, &c)
+		actions.CreateFile(newUserInputData(templateName, fileName))
 	},
 }
 
 func AddCreateFileCommand(rootCmd *cobra.Command) {
-	createFileCmd.Flags().StringVarP(&fileTemplateName, "templateName", "t", "", "Name of template to use (required)")
+	createFileCmd.Flags().StringVarP(&templateName, "templateName", "t", "", "Name of template to use (required)")
 	createFileCmd.MarkFlagRequired("templateName")
 
-	createFileCmd.Flags().StringVarP(&filename, "filename", "f", "", "Name of the file to create (required)")
-	createFileCmd.MarkFlagRequired("filename")
+	createFileCmd.Flags().StringVarP(&fileName, "fileName", "f", "", "Name of the file to create (required)")
 
 	rootCmd.AddCommand(createFileCmd)
+}
+
+func newUserInputData(templateName string, fileName string) *actions.UserInputData {
+	f := templateName
+	if fileName != "" {
+		f = fileName
+	}
+
+	return &actions.UserInputData {
+		TemplateName: templateName,
+		FileName: f,
+	}
 }

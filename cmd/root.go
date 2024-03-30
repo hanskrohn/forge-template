@@ -19,6 +19,10 @@ var rootCmd = &cobra.Command{
 		actions.DisplayMainMenu(s)
 
 		selectedAction := s.Action
+		if(selectedAction == state.CreateFileFromTemplate) {
+			actions.CreateFile(nil)
+			return
+		}
 
 		if(selectedAction == state.CreateProjectTemplate || selectedAction == state.CreateFileTemplate) {
 			actions.CreateTemplate(s, nil)

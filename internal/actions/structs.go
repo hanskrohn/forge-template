@@ -6,6 +6,27 @@ import (
 	"github.com/hanskrohn/forge-template/internal/tui"
 )
 
+type CreateFileModel struct{
+	textInput     *tui.TextInput
+	list      	  *tui.List
+	UserInputData *UserInputData
+	templateData  *templateData
+}
+
+type UserInputData struct {
+	FileName     string
+	TemplateName string
+}
+
+type templateData struct {
+	content       string
+	variables 	  *[]*common.Variable
+	variableIndex int
+	mode		  mode
+}
+
+
+
 type mainMenuModel struct {
 	list 	*tui.List
 	state   *state.State
