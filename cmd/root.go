@@ -14,7 +14,7 @@ var isDirectory bool
 var fileName string
 var templateName string
 
-var Version string = "1.1.2"
+var Version string = "1.2.0"
 
 var rootCmd = &cobra.Command{
 	Use:   "forge-template",
