@@ -6,6 +6,10 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 )
 
+const INPUT_FORMAT_BASE_ACTIONS = "\n\n%s\n\n%s\n%s"
+const SAVE_ACTION = "(ctrl+s to save)"
+const QUIT_ACTION = "(ctrl+c to quit)"
+
 type List struct {
     Choices  []string
     Cursor   int

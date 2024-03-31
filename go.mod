@@ -2,13 +2,20 @@ module github.com/hanskrohn/forge-template
 
 go 1.22.0
 
-require github.com/charmbracelet/bubbletea v0.25.0
+require (
+	github.com/charmbracelet/bubbletea v0.25.0
+	github.com/stretchr/testify v1.9.0
+)
 
 require (
 	github.com/atotto/clipboard v0.1.4 // indirect
 	github.com/charmbracelet/lipgloss v0.9.1 // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/stretchr/objx v0.5.2 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
 require (
