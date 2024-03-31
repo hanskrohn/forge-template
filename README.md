@@ -1,5 +1,9 @@
 # forge-template
 
+![Tests](https://github.com/hanskrohn/forge-template/actions/workflows/test.yml/badge.svg)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/hanskrohn/forge-template)
+![GitHub](https://img.shields.io/github/license/hanskrohn/forge-template)
+
 ![Example GIF](./assets/example.gif)
 
 Tired of repetitive, boilerplate code? `forge-template` is here to rescue you! No more wasting time on generic, repetitive tasks! With `forge-template` you can quickly generate templates tailored to your project requirements, letting you focus on what really matters, your code.
